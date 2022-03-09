@@ -32,6 +32,7 @@ Node* insertAtHead(Node* head, int data){
 }
 
 // Method 1 : Simple Iterative Using Dummy Node
+// Time Complexity : O(m+n)  Space Complexity : O(1)
 void simplify(Node* &newList, Node* &node){
 
     newList->next = node;
@@ -81,7 +82,7 @@ Node* merge_2_sorted_list(Node* first, Node* second){
 }
 
 // Method 2 : Using Recursion
-// Time Complexity : O(m+n)  Space Complexity : Stack Space + Const space
+// Time Complexity : O(m+n)  Space Complexity : Stack Space(O(n)) + Const space
 // Node* merge_2_sorted_list(Node* first, Node* second){
 
 //     if(first == NULL) return second;
