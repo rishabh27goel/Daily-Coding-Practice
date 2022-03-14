@@ -93,7 +93,7 @@ bool checkPalindrome(Node* head){
     Node* start = head;
     Node* halfWay = middle->next;
 
-    while(halfWay != NULL && start != middle->next){
+    while(halfWay != NULL){
 
         if(start->data != halfWay->data)
             return false;

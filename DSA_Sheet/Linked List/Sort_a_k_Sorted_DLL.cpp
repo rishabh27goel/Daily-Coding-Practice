@@ -103,6 +103,7 @@ int main()
     // Sort K Sorted DLL
     listHead = sortKSortedDLL(listHead, k);
 
+    cout << "Updated List : ";
     Node* curr = listHead;
     while(curr != NULL){
 
@@ -110,5 +111,6 @@ int main()
         curr = curr->next;
     }
 
+    cout << endl;
     return 0;
 }
