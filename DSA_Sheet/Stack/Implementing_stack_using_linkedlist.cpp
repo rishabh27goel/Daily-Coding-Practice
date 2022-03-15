@@ -23,8 +23,8 @@ class Stack {
 
     Stack(){
 
-        count = 0;
-        top = NULL;
+        this->count = 0;
+        this->top = NULL;
     }
 
     void push(int data){
