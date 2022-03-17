@@ -3,18 +3,18 @@
 using namespace std;
 
 // Time Complexity : O(n)  Space Complexity : O(n)
-void deleteMiddle(stack<int> &input, int count, int size){
+void insertAtBottom(stack<int> &input, int val){
 
-    if(count == size/2){
+    if(input.empty()){
 
-        input.pop();
+        input.push(val);
         return;
     }
 
     int data = input.top();
     input.pop();
 
-    deleteMiddle(input, count + 1, size);
+    insertAtBottom(input, val);
     input.push(data);
 }
 
@@ -34,7 +34,7 @@ void printStack(stack<int> input, int index){
 
 int main()
 {
-    int n;
+    int n;  
     cout << "Enter number of inputs : ";
     cin >> n;
 
@@ -45,13 +45,16 @@ int main()
 
         cin >> data;
         input.push(data);
-    }
+    }   
 
-    deleteMiddle(input, 0, n);
+    int val;
+    cout << "Enter value to insert : ";
+    cin >> val;
 
-    cout << "Modified Stack is : ";
+    insertAtBottom(input, val);
+    
+    cout << "Modified Stack : ";
     printStack(input, 0);
-
 
     cout << endl;
     return 0;
