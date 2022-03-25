@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// Method 1 : Simple Iteration to left and right (Brute Force)
+// Time Complexity : O(n^2)  Space Complexity : O(1)
 int largestRectangularArea(int *arr, int n){
 
     if(n == 1) return arr[0];
@@ -48,6 +50,12 @@ int largestRectangularArea(int *arr, int n){
     }
 
     return maxArea;
+}
+
+// Method 2 : 
+// Time Complexity : O(n)  Space Complexity : O(n)
+int largestRectangularArea(int *arr, int n){
+
 }
 
 int main()
