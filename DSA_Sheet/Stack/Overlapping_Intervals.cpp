@@ -66,59 +66,103 @@ static bool compare(vector<int> a, vector<int> b){
 
 // Method 2 : Using Stack for tracking
 // Time Complexity : O(n * log(n))  Space Complexity : O(n) [For Stack]
+// vector<vector<int> > overlappingIntervals(vector<vector<int> > intervals){
+
+//     if(intervals.size() <= 1) return intervals;
+//     sort(intervals.begin(), intervals.end(), compare);
+
+//     // Adding Intervals to Stack
+//     vector<vector<int> > output;
+//     stack<int> st;
+
+//     // Add first pair to stack
+//     st.push(intervals[0][0]);
+//     st.push(intervals[0][1]);
+//     int i = 1;
+
+//     while(i < intervals.size()){
+  
+//         if(intervals[i][0] <= st.top()){
+
+//             // Merge Possible
+//             if(intervals[i][1] > st.top()){
+
+//                 st.pop();
+//                 st.push(intervals[i][1]);
+//             }
+//         }
+//         else{
+
+//             // Merge Not Possible
+//             st.push(intervals[i][0]);
+//             st.push(intervals[i][1]);
+//         }
+
+//         i++;
+//     }
+
+//     // Stack Contains all the Merged Intervals
+//     while(!st.empty()){
+
+//         vector<int> pair;
+//         int endInterval = st.top();
+//         st.pop();
+
+//         int startInterval = st.top();
+//         st.pop();
+
+//         pair.push_back(startInterval);
+//         pair.push_back(endInterval);
+
+//         output.push_back(pair);
+//     }
+
+//     // Sort at the end
+//     sort(output.begin(), output.end(), compare);
+
+//     return output;
+// }
+
+// Method 3 : Without Extra Space
+// Time Complexity : O(n * log(n))  Space Complexity : O(1)
 vector<vector<int> > overlappingIntervals(vector<vector<int> > intervals){
 
     if(intervals.size() <= 1) return intervals;
     sort(intervals.begin(), intervals.end(), compare);
 
-    // Adding Intervals to Stack
+    // Iterating & Merging
     vector<vector<int> > output;
-    stack<int> st;
-
-    // Add first pair to stack
-    st.push(intervals[0][0]);
-    st.push(intervals[0][1]);
+    int index = 0;
     int i = 1;
 
     while(i < intervals.size()){
-  
-        if(intervals[i][0] <= st.top()){
+
+        if(intervals[i][0] <= intervals[index][1]){
 
             // Merge Possible
-            if(intervals[i][1] > st.top()){
-
-                st.pop();
-                st.push(intervals[i][1]);
-            }
+            intervals[index][1] = max(intervals[index][1], intervals[i][1]);
         }
         else{
 
             // Merge Not Possible
-            st.push(intervals[i][0]);
-            st.push(intervals[i][1]);
+            index++;
+
+            // Copy Intervals after index
+            intervals[index][0] = intervals[i][0];
+            intervals[index][1] = intervals[i][1];
         }
 
         i++;
     }
 
-    // Stack Contains all the Merged Intervals
-    while(!st.empty()){
+    for(int j=0; j<=index; j++){
 
         vector<int> pair;
-        int endInterval = st.top();
-        st.pop();
-
-        int startInterval = st.top();
-        st.pop();
-
-        pair.push_back(startInterval);
-        pair.push_back(endInterval);
+        pair.push_back(intervals[j][0]);
+        pair.push_back(intervals[j][1]);
 
         output.push_back(pair);
     }
-
-    // Sort at the end
-    sort(output.begin(), output.end(), compare);
 
     return output;
 }
