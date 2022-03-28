@@ -123,6 +123,12 @@ vector<vector<int> > overlappingIntervals(vector<vector<int> > intervals){
     return output;
 }
 
+// Method 3 : Without Extra Space
+// Time Complexity : O(n * log(n))  Space Complexity : O(1)
+vector<vector<int> > overlappingIntervals(vector<vector<int> > intervals){
+
+}
+
 int main()
 {
     int n;
