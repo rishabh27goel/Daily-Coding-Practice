@@ -56,7 +56,7 @@ using namespace std;
 // }
 
 // Method 2 : Storing Index in Stack
-// Time Complexity : O(n)  Space Complexity : O(1)
+// Time Complexity : O(n)  Space Complexity : O(n)
 // int longestValidParentheses(string s){
 
 //     if(s.size() <= 1) return 0;

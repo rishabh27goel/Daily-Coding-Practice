@@ -30,6 +30,8 @@ void insertingNodeAtHead(Node* &head, int data){
     }
 }
 
+// Method 1 : Using Iterative Method
+// Time Complexity : O(n)  Space Complexity : Stack Space O(1)
 Node* iterativeReverseLinkedList(Node* head){
 
     Node *prev = NULL;
@@ -48,6 +50,8 @@ Node* iterativeReverseLinkedList(Node* head){
     return head;
 }
 
+// Method 2 : Using Recursion Method
+// Time Complexity : O(n)  Space Complexity : Stack Space O(n)
 Node* recursiveReverseLinkedList(Node* head){
 
     if(head == NULL || head->next == NULL)
@@ -58,7 +62,6 @@ Node* recursiveReverseLinkedList(Node* head){
 
     // End Element
     head->next = NULL;
-
     return rest;
 }
 
