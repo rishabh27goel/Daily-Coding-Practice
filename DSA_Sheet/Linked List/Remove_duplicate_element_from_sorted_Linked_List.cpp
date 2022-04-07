@@ -59,7 +59,7 @@ Node* insertAtHead(Node* head, int data){
 // }
 
 // Method 2 : Recursive Method
-// Time Complexity : O(n)   Space Complexity : O(1)
+// Time Complexity : O(n)   Space Complexity : O(n)
 // void removeDuplicateElement(Node* head){
 
 //     if(head == NULL || head->next == NULL) return;
@@ -80,24 +80,45 @@ Node* insertAtHead(Node* head, int data){
 
 // Method 3 : Using Map
 // Time Complexity : O(n)   Space Complexity : O(n)
-void removeDuplicateElement(Node* head){
+Node* removeDuplicateElement(Node* head){
 
-    if(head == NULL || head->next == NULL) return;
+    if(head == NULL || head->next == NULL) return head;
 
     Node* curr = head;
+    Node* prev = NULL;
     map <int, bool> visited;
 
-    cout<<"\nNew List : ";
     while(curr != NULL){
 
-        if(visited.find(curr->data) == visited.end()){
+        if(visited.find(curr->data) != visited.end()){
 
-            visited[curr->data] = true;
-            cout <<curr->data <<" ";
+            Node* track = curr;
+            prev->next = curr->next;
+            curr = prev->next;
+            delete track;
+            continue;
         }
 
+        visited[curr->data] = true;
+        prev = curr;
         curr = curr->next;
     }
+
+    // Only Printing Element :
+
+    // cout<<"\nNew List : ";
+    // while(curr != NULL){
+
+    //     if(visited.find(curr->data) == visited.end()){
+
+    //         visited[curr->data] = true;
+    //         cout <<curr->data <<" ";
+    //     }
+
+    //     curr = curr->next;
+    // }
+
+    return head;
 }
 
 int main()
@@ -125,17 +146,17 @@ int main()
     }
 
     // Remove Duplicate Element
-    
-    // head = removeDuplicateElement(head);
-    removeDuplicateElement(head);
-    // curr = head;
 
-    // cout<<"\nNew Linked List : ";
-    // while(curr != NULL){
+    head = removeDuplicateElement(head);
+    // removeDuplicateElement(head);
+    curr = head;
 
-    //     cout <<curr->data <<" ";
-    //     curr = curr->next;
-    // }
+    cout<<"\nNew Linked List : ";
+    while(curr != NULL){
+
+        cout <<curr->data <<" ";
+        curr = curr->next;
+    }
     
     cout <<endl;
     return 0;
