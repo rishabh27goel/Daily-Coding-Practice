@@ -7,7 +7,7 @@ using namespace std;
 // Time Complexity : O(n * k)   Space Complexity : O(1)
 // vector<int> firstNegativeInteger(vector<int> arr, int k){
 
-//     if(arr.size() == 0) return arr;
+//     if(arr.size() == 0 || k == 0) return arr;
 
 //     vector<int> output;
 
@@ -32,50 +32,80 @@ using namespace std;
 
 // Method 2 : Using Deque
 // Time Complexity : O(n)   Space Complexity : O(k)
-vector<int> firstNegativeInteger(vector<int> arr, int k){
+// vector<int> firstNegativeInteger(vector<int> arr, int k){
 
-    if(arr.size() == 0) return arr;
+//     if(arr.size() == 0 || k == 0) return arr;
 
-    vector<int> output;
-    deque<int> dq;
+//     vector<int> output;
+//     deque<int> dq;
 
-    // First Window Push
-    for(int i=0; i<k; i++){
+//     // First Window Push
+//     for(int i=0; i<k; i++){
 
-        if(arr[i] < 0){
+//         if(arr[i] < 0){
 
-            dq.push_back(i);
-        }
-    }
+//             dq.push_back(i);
+//         }
+//     }
 
-    if(dq.size() != 0){
+//     if(dq.size() != 0){
 
-        output.push_back(arr[dq.front()]);
-    }
-    else{
+//         output.push_back(arr[dq.front()]);
+//     }
+//     else{
 
-        output.push_back(0);
-    }
+//         output.push_back(0);
+//     }
     
 
-    // Iterate Rest of the Windows add and remove one element
-    for(int i=k; i<arr.size(); i++){
+//     // Iterate Rest of the Windows add and remove one element
+//     for(int i=k; i<arr.size(); i++){
 
-        // Add Element
-        if(arr[i] < 0){
+//         // Add Element
+//         if(arr[i] < 0){
 
-            dq.push_back(i);
+//             dq.push_back(i);
+//         }
+
+//         // Remove Element
+//         if(!dq.empty() && dq.front() <= i-k){
+
+//             dq.pop_front();
+//         }
+
+//         if(dq.size() != 0){
+
+//             output.push_back(arr[dq.front()]);
+//         }
+//         else{
+
+//             output.push_back(0);
+//         }
+//     }
+
+//     return output;
+// }
+
+// Method 3 : Single Iteration
+// Time Complexity : O(n)   Space Complexity : O(1)
+vector<int> firstNegativeInteger(vector<int> arr, int k){
+
+    if(arr.size() == 0 || k == 0) return arr;
+
+    vector<int> output;
+
+    int firstIndex = 0;
+
+    for(int i=k-1; i<arr.size(); i++){
+
+        while(firstIndex < i && (firstIndex <= i-k || arr[firstIndex] > 0)){
+
+            firstIndex++;
         }
 
-        // Remove Element
-        if(!dq.empty() && dq.front() <= i-k){
+        if(arr[firstIndex] < 0){
 
-            dq.pop_front();
-        }
-
-        if(dq.size() != 0){
-
-            output.push_back(arr[dq.front()]);
+            output.push_back(arr[firstIndex]);
         }
         else{
 
