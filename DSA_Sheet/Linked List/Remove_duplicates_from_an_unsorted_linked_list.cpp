@@ -99,7 +99,8 @@ Node* insertAtHead(Node* head, int data){
 //     return head;
 // }
 
-// Method 2 : Remaining (After Learning Sorting)
+// Method 2 : Using Sorting
+// Time Complexity : O(n * logn)   Space Complexity : O(1)
 Node* getMid(Node* list){
 
     Node* slow = list;
@@ -206,7 +207,7 @@ Node* removeDuplicates(Node* head){
     return head;
 }
 
-// Method 3 : 
+// Method 3 : Using Map
 // Time Complexity : O(n)   Space Complexity : O(n)
 // Node* removeDuplicates(Node* head){
 
