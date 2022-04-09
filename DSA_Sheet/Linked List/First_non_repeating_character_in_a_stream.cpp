@@ -15,7 +15,7 @@ class Node {
     }
 };
 
-// Method 1 : Using HashMap
+// Method 1 : Using Count Map
 // Time complexity : O(26 * n)   Space Complexity : O(26)
 // string firstNonRepeating(string input){
 
@@ -93,7 +93,7 @@ class Node {
 //     return output;
 // }
 
-// Method 3 : Doubly Linked List
+// Method 3 : Using Linked List
 // Time complexity : O(n)   Space Complexity : O(n)
 Node* createNode(Node* head, Node* &tail, char data){
 
