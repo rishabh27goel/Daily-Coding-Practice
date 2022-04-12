@@ -5,7 +5,7 @@ using namespace std;
 
 // Method 1 : Brute Force
 // Time Complexity : O(n * k)    Space Complexity : O(1) 
-// vector<int> maximumElementInSubArray(vector<int> input, int k){
+// vector<int> minimumElementInSubArray(vector<int> input, int k){
 
 //     if(k <= 1) return input;
 
@@ -13,17 +13,17 @@ using namespace std;
 
 //     for(int i=0; i<input.size()-k+1; i++){
 
-//         int max = input[i];
+//         int min = input[i];
 
 //         for(int j=i+1; j<i+k; j++){
 
-//             if(input[j] > max){
+//             if(input[j] < min){
 
-//                 max = input[j];
+//                 min = input[j];
 //             }
 //         }
 
-//         output.push_back(max);
+//         output.push_back(min);
 //     }
 
 //     return output;
@@ -31,18 +31,18 @@ using namespace std;
 
 // Method 2 : Using Deque
 // Time Complexity : O(n)    Space Complexity : O(k)  
-vector<int> maximumElementInSubArray(vector<int> input, int k){
+vector<int> minimumElementInSubArray(vector<int> input, int k){
 
     if(k <= 1) return input;
 
     vector<int> output;
     deque<int> dq;
 
-    // Check for first k 
+    // Check for first k
     for(int i=0; i<k; i++){
 
-        // No need for previous smaller element so remove them
-        while(!dq.empty() && input[i] >= input[dq.back()]){
+        // Remove all larger elements present than input[i]
+        while(!dq.empty() && input[i] <= input[dq.back()]){
 
             dq.pop_back();
         }
@@ -62,8 +62,8 @@ vector<int> maximumElementInSubArray(vector<int> input, int k){
             dq.pop_front();
         }
 
-        // No need for previous smaller element so remove them
-        while(!dq.empty() && input[i] >= input[dq.back()]){
+        // Remove all larger elements present than input[i]
+        while(!dq.empty() && input[i] <= input[dq.back()]){
 
             dq.pop_back();
         }
@@ -81,8 +81,8 @@ int main()
     cout << "Enter size of the array : ";
     cin >> n;
 
-    vector<int> input(n);
     cout << "Enter array values : ";
+    vector<int> input(n);
 
     for(int i=0; i<n; i++){
 
@@ -93,9 +93,9 @@ int main()
     cout << "Enter value of k : ";
     cin >> k;
 
-    vector<int> output = maximumElementInSubArray(input, k);
+    vector<int> output = minimumElementInSubArray(input, k);
 
-    cout << "Maximum Array is : ";
+    cout << "Minimum Array is : ";
     for(int i=0; i<output.size(); i++){
 
         cout << output[i] << " ";
