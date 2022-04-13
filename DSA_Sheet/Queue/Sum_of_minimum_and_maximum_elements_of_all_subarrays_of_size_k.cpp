@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <deque>
 using namespace std;
 
 // Method 1 : Brute Force
@@ -40,6 +41,66 @@ using namespace std;
 // Time Complexity : O(n)    Space Complexity : O(k)  
 vector<int> sumOfMaxAndMin(vector<int> input, int k){
 
+    if(k <= 1) return input;
+
+    vector<int> output;
+
+    // Deque for Maximum & Minimum track
+    deque<int> max;
+    deque<int> min;
+
+    // Iterate first window of k
+    for(int i=0; i<k; i++){
+
+        // Max track & remove smaller element present
+        while(!max.empty() && input[i] >= input[max.back()]){
+
+            max.pop_back();
+        }
+
+        // Min track & remove larger element present
+        while(!min.empty() && input[i] <= input[min.back()]){
+
+            min.pop_back();
+        }
+
+        max.push_back(i);
+        min.push_back(i);
+    }
+
+    output.push_back(input[max.front()] + input[min.front()]);
+
+    for(int i=k; i<input.size(); i++){
+
+        // Removal of indexes
+        while(!max.empty() && max.front() <= i - k){
+
+            max.pop_front();
+        }
+
+        while(!min.empty() && min.front() <= i - k){
+
+            min.pop_front();
+        }
+
+        // Add new indexes
+        while(!max.empty() && input[i] >= input[max.back()]){
+
+            max.pop_back();
+        }
+
+        while(!min.empty() && input[i] <= input[min.back()]){
+
+            min.pop_back();
+        }
+
+        max.push_back(i);
+        min.push_back(i);
+
+        output.push_back(input[max.front()] + input[min.front()]);
+    }
+
+    return output;
 }
 
 int main()
