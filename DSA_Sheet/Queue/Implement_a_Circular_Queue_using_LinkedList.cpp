@@ -46,6 +46,8 @@ class CircularQueue {
             newNode->next = front;
             rear = rear->next;
         }
+
+        size++;
     }
 
     void pop(){
@@ -74,6 +76,7 @@ class CircularQueue {
             }
 
             delete store;
+            size--;
         }
     }
 
