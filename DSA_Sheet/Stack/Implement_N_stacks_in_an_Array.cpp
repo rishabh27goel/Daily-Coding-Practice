@@ -1,7 +1,66 @@
 #include <iostream>
 using namespace std;
 
-// Method 1 : Dividing N Stack in Array [Equal Parts    ] 
+// Method 1 : Dividing N Stack in Array [Equal Parts] 
+// class NStack {
+
+//     public:
+//         int nS;
+//         int nA;
+//         int *arr;
+//         int *top;
+
+//     NStack(int nS, int nA){
+
+//         this->nS = nS;
+//         this->nA = nA;
+//         arr = new int[nA];
+//         top = new int[nS];
+
+//         for(int i=0; i<nS; i++){
+
+//             top[i] = (i * (nA/nS)) - 1;
+//         }
+//     }
+
+//     void push(int x, int m){
+
+//         if(top[m-1] >= ((m * (nA/nS)) - 1)){
+
+//             cout << "Stack is Full !" << endl;
+//             return;
+//         }
+
+//         top[m-1]++;
+//         arr[top[m-1]] = x;
+//     }
+
+//     void pop(int m){
+
+//         if(top[m-1] == (((m-1) * (nA/nS))-1)){
+
+//             cout << "Stack is Empty !" << endl;
+//             return;
+//         }
+
+//         int index = top[m-1];
+//         top[m-1]--;
+
+//         cout << "Deleted : " << arr[index] << endl;
+//     }
+
+//     void topElement(int m){
+
+//         if(top[m-1] == (((m-1) * (nA/nS))-1)){
+
+//             cout << "Stack is Empty !" << endl;
+//         }
+//         else{
+
+//             cout << "Top Element is : " << arr[top[m-1]];
+//         }
+//     }
+// };
 
 // Method 2 : No memory wastage
 class NStack {
@@ -102,7 +161,7 @@ class NStack {
 
 int main()
 {
-    NStack nS(2, 4);
+    NStack nS(3, 6);
 
     nS.push(10, 1);
     nS.push(20, 1);
@@ -115,6 +174,7 @@ int main()
 
     nS.pop(1);
 
+    nS.push(10, 3);
     nS.push(10, 3);
     nS.push(25, 1);
 
