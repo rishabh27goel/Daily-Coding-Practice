@@ -69,7 +69,7 @@ class Stack {
 
     int peek1(){
 
-        if(top1 != 0){
+        if(top1 >= 0){
 
             return arr[top1];
         }
@@ -81,7 +81,7 @@ class Stack {
 
     int peek2(){
 
-        if(top2 != size){
+        if(top2 < size){
 
             return arr[top2];
         }
