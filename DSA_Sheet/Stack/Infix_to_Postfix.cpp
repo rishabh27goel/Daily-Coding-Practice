@@ -75,7 +75,7 @@ string infixToPostfix(string infix){
         }
     }
 
-    // Empty the start now
+    // Empty the stack now
     while(!st.empty()){
 
         postfix += st.top();
