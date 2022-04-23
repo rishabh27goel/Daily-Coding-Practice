@@ -62,7 +62,7 @@ using namespace std;
 //     }
 // };
 
-// Method 2 : No memory wastage
+// Method 2 : No memory wastage [Optimised]
 class NStack {
 
     public:
