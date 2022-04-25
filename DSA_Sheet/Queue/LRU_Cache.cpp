@@ -5,11 +5,13 @@ using namespace std;
 // Using Build-in List STL
 // Adding new (key, value) pair
 
-// class LRUCache {
+// class LRUCache
+// {
 //     public:
-//         list<int> ls;
-//         map<int, list<int> :: iterator> mp;
-//         int csize;
+//          list<int> ls;
+//          map<int, list<int> :: iterator> mp;
+//          map<int, int> pair;
+//          int csize;
  
 //     //Constructor for initializing the cache capacity with the given value.
 //     LRUCache(int cap)
@@ -21,14 +23,26 @@ using namespace std;
 //     int get(int key)
 //     {
 //         // If value does not exits
-//         if(mp.find(key))
+//         if(mp.find(key) == mp.end()){
+            
+//             return -1;
+//         }
+//         else{
+            
+//             // Move key to front
+//             ls.erase(mp[key]);
+//             ls.push_front(key);
+            
+//             mp[key] = ls.begin();
+//             return pair[key];
+//         }
 //     }
     
 //     //Function for storing key-value pair.
 //     void set(int key, int value)
 //     {
 //         // If value does not exits
-//         if(mp.find(value) == mp.end()){
+//         if(mp.find(key) == mp.end()){
             
 //             // Insert a new value [check if capacity is reached]
             
@@ -45,15 +59,18 @@ using namespace std;
 //         else{
             
 //             // If value exits [Move to front after deleting]
-//             ls.earse(mp[value]);
+//             ls.erase(mp[key]);
 //         }
 
-//         ls.push_front(value);        
-//         mp[value] = ls.begin();
+//         ls.push_front(key); 
+//         pair[key] = value;
+//         mp[key] = ls.begin();
 //     }
 // };
 
+
 // Implementing from Scratch
+
 class Node {
 
     public:
