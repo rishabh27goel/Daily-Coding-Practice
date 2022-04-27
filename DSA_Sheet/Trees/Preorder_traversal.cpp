@@ -49,33 +49,33 @@ Node* createTree(Node* root){
 
 // Method 2 : Iterative Method 
 // Time Complexity : O(n)  Space Complexity : O(n)
-void preorderTraversal(Node* root, vector<int> &preorder){
+// void preorderTraversal(Node* root, vector<int> &preorder){
 
-    if(root == NULL) return;
+//     if(root == NULL) return;
 
-    // For iterating the tree
-    stack<Node*> st;
-    st.push(root);
+//     // For iterating the tree
+//     stack<Node*> st;
+//     st.push(root);
 
-    while(!st.empty()){
+//     while(!st.empty()){
 
-        Node* top = st.top();
-        st.pop();
+//         Node* top = st.top();
+//         st.pop();
 
-        // Storing the root first
-        preorder.push_back(top->data);
+//         // Storing the root first
+//         preorder.push_back(top->data);
 
-        if(top->right != NULL){
+//         if(top->right != NULL){
 
-            st.push(top->right);
-        }
+//             st.push(top->right);
+//         }
 
-        if(top->left != NULL){
+//         if(top->left != NULL){
 
-            st.push(top->left);
-        }
-    }
-}
+//             st.push(top->left);
+//         }
+//     }
+// }
 
 // Method 3 : Iterative Method [Space Optimized]
 // Time Complexity : O(n)  Space Complexity : O(h) 
