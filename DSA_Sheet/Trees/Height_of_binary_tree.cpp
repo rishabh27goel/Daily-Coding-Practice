@@ -33,7 +33,7 @@ Node* createTree(Node* root){
 }
 
 // Method 1 : Recursive Method 
-// Time Complexity : O(n)  Space Complexity : O(n)
+// Time Complexity : O(n)  Space Complexity : O(h) [But for Skewed Trees -> O(n)]
 // int heightOfBinaryTree(Node* root){
 
 //     if(root == NULL) return 0;

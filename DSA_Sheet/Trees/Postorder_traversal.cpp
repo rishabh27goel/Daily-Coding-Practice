@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 #include <vector>
 using namespace std;
 
@@ -44,6 +45,7 @@ void postorderTraversal(Node* root, vector<int> &postorder){
 
     postorder.push_back(root->data);
 }
+
 
 int main()
 {
