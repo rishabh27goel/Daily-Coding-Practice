@@ -35,17 +35,60 @@ Node* createTree(Node* root){
 
 // Method 1 : Recursive Method 
 // Time Complexity : O(n)  Space Complexity : O(n)
+// void postorderTraversal(Node* root, vector<int> &postorder){
+
+//     if(root == NULL) return;
+
+//     // Left Node : Right Node : Root Node
+//     postorderTraversal(root->left, postorder);
+//     postorderTraversal(root->right, postorder);
+
+//     postorder.push_back(root->data);
+// }
+
+// Method 2 : Iterative Method [Using Two Stacks]
+// Time Complexity : O(n)  Space Complexity : O(n)
 void postorderTraversal(Node* root, vector<int> &postorder){
 
     if(root == NULL) return;
 
-    // Left Node : Right Node : Root Node
-    postorderTraversal(root->left, postorder);
-    postorderTraversal(root->right, postorder);
+    // Storing the tree nodes
+    stack<Node*> helper;
+    helper.push(root);
 
-    postorder.push_back(root->data);
+    stack<Node*> st;
+
+    while(!helper.empty()){
+
+        Node* top = helper.top();
+        helper.pop();
+
+        // Store popped items to main stack
+        st.push(top);
+
+        // Iterate left then right nodes of top
+        if(top->left != NULL){
+
+            helper.push(top->left);
+        }
+
+        if(top->right != NULL){
+
+            helper.push(top->right);
+        }
+    }
+
+    // After the end of loop we have inorder in the main stack
+    while(!st.empty()){
+
+        postorder.push_back(st.top()->data);
+        st.pop();
+    }
 }
 
+// Method 3 : Iterative Method [Using Single Stacks]
+// Time Complexity : O(n)  Space Complexity : O(n)
+void postorderTraversal(Node* root, vector<int> &postorder){
 
 int main()
 {
