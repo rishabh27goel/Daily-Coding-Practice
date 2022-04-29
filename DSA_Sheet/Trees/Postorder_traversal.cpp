@@ -48,47 +48,87 @@ Node* createTree(Node* root){
 
 // Method 2 : Iterative Method [Using Two Stacks]
 // Time Complexity : O(n)  Space Complexity : O(n)
+// void postorderTraversal(Node* root, vector<int> &postorder){
+
+//     if(root == NULL) return;
+
+//     // Storing the tree nodes
+//     stack<Node*> helper;
+//     helper.push(root);
+
+//     stack<Node*> st;
+
+//     while(!helper.empty()){
+
+//         Node* top = helper.top();
+//         helper.pop();
+
+//         // Store popped items to main stack
+//         st.push(top);
+
+//         // Iterate left then right nodes of top
+//         if(top->left != NULL){
+
+//             helper.push(top->left);
+//         }
+
+//         if(top->right != NULL){
+
+//             helper.push(top->right);
+//         }
+//     }
+
+//     // After the end of loop we have inorder in the main stack
+//     while(!st.empty()){
+
+//         postorder.push_back(st.top()->data);
+//         st.pop();
+//     }
+// }
+
+// Method 3 : Iterative Method [Using Single Stacks]
+// Time Complexity : O(n)  Space Complexity : O(n)
 void postorderTraversal(Node* root, vector<int> &postorder){
 
     if(root == NULL) return;
 
     // Storing the tree nodes
-    stack<Node*> helper;
-    helper.push(root);
-
     stack<Node*> st;
+    Node* itr = root;
 
-    while(!helper.empty()){
+    while(!st.empty() || itr != NULL){
 
-        Node* top = helper.top();
-        helper.pop();
+        while(itr != NULL){
 
-        // Store popped items to main stack
-        st.push(top);
+            // Store the right child and then current node
+            if(itr->right != NULL){
 
-        // Iterate left then right nodes of top
-        if(top->left != NULL){
+                st.push(itr->right);
+            }
 
-            helper.push(top->left);
+            // Push current node
+            st.push(itr);
+
+            itr = itr->left;
         }
 
-        if(top->right != NULL){
-
-            helper.push(top->right);
-        }
-    }
-
-    // After the end of loop we have inorder in the main stack
-    while(!st.empty()){
-
-        postorder.push_back(st.top()->data);
+        // Get the top element
+        itr = st.top();
         st.pop();
+
+        if(!st.empty() && itr->right == st.top()){
+
+            st.pop();
+            st.push(itr);
+            itr = itr->right;
+        }
+        else{
+
+            postorder.push_back(itr->data);
+            itr = NULL; 
+        }
     }
 }
-
-// Method 3 : Iterative Method [Using Single Stacks]
-// Time Complexity : O(n)  Space Complexity : O(n)
-void postorderTraversal(Node* root, vector<int> &postorder){
 
 int main()
 {
