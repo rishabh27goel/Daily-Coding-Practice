@@ -79,10 +79,48 @@ Node* createTree(Node* root){
 // }
 
 // Method 3 : Using Morris Traversal 
-// Time Complexity : O(n)  Space Complexity : O(n)
+// Time Complexity : O(n)  Space Complexity : O(1)
 void inorderTraversal(Node* root, vector<int> &inorder){
 
-    
+    if(root == NULL) return;
+
+    // Set the current
+    Node* current = root;
+    Node* pred;
+
+    while(current != NULL){
+
+        // No left present
+        if(current->left == NULL){
+
+            inorder.push_back(current->data);
+            current = current->right;
+        }
+        else{
+            
+            // Get the inorder predecessor of current
+            pred = current->left;
+
+            while(pred->right != NULL && pred->right != current){
+
+                pred = pred->right;
+            }
+
+            // Create connection with current to iterate later
+            if(pred->right == NULL){
+
+                pred->right = current;
+                current = current->left;
+            }
+            else{
+                
+                // Restore original tree
+                pred->right = NULL;
+                inorder.push_back(current->data);
+                current = current->right;
+            }
+        }
+    }
 }
 
 int main()
