@@ -90,10 +90,12 @@ void inorderTraversal(Node* root, vector<int> &inorder){
 
     while(current != NULL){
 
-        // No left present
+        // Till no left present
         if(current->left == NULL){
 
             inorder.push_back(current->data);
+
+            // Go to right [edge we created]
             current = current->right;
         }
         else{

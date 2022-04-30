@@ -80,35 +80,82 @@ Node* createTree(Node* root){
 // Method 3 : Iterative Method [Space Optimized]
 // Time Complexity : O(n)  Space Complexity : O(h) 
 // We are not storing more than { height of the tree nodes } in the stack
+// void preorderTraversal(Node* root, vector<int> &preorder){
+
+//     if(root == NULL) return;
+
+//     // Print left nodes & store right nodes
+//     stack<Node*> st;
+//     Node* itr = root;
+
+//     while(!st.empty() || itr != NULL){
+
+//         while(itr != NULL){
+
+//             // Store the data [left nodes]
+//             preorder.push_back(itr->data);
+
+//             // Push right nodes in the stack
+//             if(itr->right != NULL){
+
+//                 st.push(itr->right);
+//             }
+
+//             itr = itr->left;
+//         }
+
+//         // Taking one every time from stack
+//         if(!st.empty()){
+
+//             itr = st.top();
+//             st.pop();
+//         }
+//     }
+// }
+
+// Method 4 : Using Morris Traversal 
+// Time Complexity : O(n)  Space Complexity : O(1)
 void preorderTraversal(Node* root, vector<int> &preorder){
 
     if(root == NULL) return;
 
-    // Print left nodes & store right nodes
-    stack<Node*> st;
-    Node* itr = root;
+    // Set the current
+    Node* current = root;
+    Node* pred;
 
-    while(!st.empty() || itr != NULL){
+    while(current != NULL){
 
-        while(itr != NULL){
+        // Till no left present
+        if(current->left == NULL){
 
-            // Store the data [left nodes]
-            preorder.push_back(itr->data);
+            preorder.push_back(current->data);
 
-            // Push right nodes in the stack
-            if(itr->right != NULL){
+            // Go to right [edge we created]
+            current = current->right;
+        }
+        else{
+            
+            // Get the inorder predecessor of current
+            pred = current->left;
 
-                st.push(itr->right);
+            while(pred->right != NULL && pred->right != current){
+
+                pred = pred->right;
             }
 
-            itr = itr->left;
-        }
+            // Restore original tree
+            if(pred->right == current){
 
-        // Taking one every time from stack
-        if(!st.empty()){
-
-            itr = st.top();
-            st.pop();
+                pred->right = NULL;
+                current = current->right;
+            }
+            else{
+                
+                // Create connection with current to iterate later
+                preorder.push_back(current->data);
+                pred->right = current;
+                current = current->left;
+            }
         }
     }
 }

@@ -88,45 +88,102 @@ Node* createTree(Node* root){
 
 // Method 3 : Iterative Method [Using Single Stacks]
 // Time Complexity : O(n)  Space Complexity : O(n)
+// void postorderTraversal(Node* root, vector<int> &postorder){
+
+//     if(root == NULL) return;
+
+//     // Storing the tree nodes
+//     stack<Node*> st;
+//     Node* itr = root;
+
+//     while(!st.empty() || itr != NULL){
+
+//         while(itr != NULL){
+
+//             // Store the right child and then current node
+//             if(itr->right != NULL){
+
+//                 st.push(itr->right);
+//             }
+
+//             // Push current node
+//             st.push(itr);
+
+//             itr = itr->left;
+//         }
+
+//         // Get the top element
+//         itr = st.top();
+//         st.pop();
+
+//         if(!st.empty() && itr->right == st.top()){
+
+//             st.pop();
+//             st.push(itr);
+//             itr = itr->right;
+//         }
+//         else{
+
+//             postorder.push_back(itr->data);
+//             itr = NULL; 
+//         }
+//     }
+// }
+
+// Method 4 : Using Morris Traversal 
+// Time Complexity : O(n)  Space Complexity : O(1)
 void postorderTraversal(Node* root, vector<int> &postorder){
 
     if(root == NULL) return;
 
-    // Storing the tree nodes
-    stack<Node*> st;
-    Node* itr = root;
+    Node* current = root;
+    Node* pred;
 
-    while(!st.empty() || itr != NULL){
+    while(current != NULL){
 
-        while(itr != NULL){
+        // Till no right present
+        if(current->right == NULL){
 
-            // Store the right child and then current node
-            if(itr->right != NULL){
+            postorder.push_back(current->data);
 
-                st.push(itr->right);
-            }
-
-            // Push current node
-            st.push(itr);
-
-            itr = itr->left;
-        }
-
-        // Get the top element
-        itr = st.top();
-        st.pop();
-
-        if(!st.empty() && itr->right == st.top()){
-
-            st.pop();
-            st.push(itr);
-            itr = itr->right;
+            // Go to left [edge we created]
+            current = current->left;
         }
         else{
+            
+            // Get the postorder predecessor of current
+            pred = current->right;
 
-            postorder.push_back(itr->data);
-            itr = NULL; 
+            while(pred->left != NULL && pred->left != current){
+
+                pred = pred->left;
+            }   
+
+            // Create connection with current to iterate later
+            if(pred->left == NULL){
+
+                postorder.push_back(current->data);
+                pred->left = current;
+                current = current->right;
+            }
+            else{
+
+                // Restore original tree
+                pred->left = NULL;
+                current = current->left;
+            }
         }
+    }
+
+    // At the end reverse postorder vector
+    int i=0;
+    int j=postorder.size()-1;
+
+    while(i < j){
+
+        swap(postorder[i], postorder[j]);
+        i++;
+        j--;
     }
 }
 
