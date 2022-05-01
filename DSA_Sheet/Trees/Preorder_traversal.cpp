@@ -143,18 +143,18 @@ void preorderTraversal(Node* root, vector<int> &preorder){
                 pred = pred->right;
             }
 
-            // Restore original tree
-            if(pred->right == current){
+            if(pred->right == NULL){
 
-                pred->right = NULL;
-                current = current->right;
-            }
-            else{
-                
                 // Create connection with current to iterate later
                 preorder.push_back(current->data);
                 pred->right = current;
                 current = current->left;
+            }
+            else{
+                
+                // Restore original tree
+                pred->right = NULL;
+                current = current->right;
             }
         }
     }
