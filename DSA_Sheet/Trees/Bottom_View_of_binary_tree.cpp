@@ -1,7 +1,9 @@
 #include <iostream>
 #include <map>
+#include <unordered_map>
 #include <vector>
 #include <utility>
+#include <queue>
 using namespace std;
 
 class Node {
@@ -82,10 +84,106 @@ Node* createTree(Node* root){
 //     }
 // }
 
-// Method 2 : Iterative Method [Using Map]
+// Method 2 : Iterative Method [Using Queue with Ordered Map]
 // Time Complexity : O(n * logn)   Space Complexity : O(n)
+// void bottomViewBinaryTree(Node* root, vector<int> &bottomView){
+
+//     if(root == NULL) return;
+
+//     // For tree node data
+//     map<int, int> mp;
+
+//     // Storing the tree nodes & vertical height
+//     queue< pair<Node*, int> > q;
+//     q.push(make_pair(root, 0));
+
+//     while(!q.empty()){
+
+//         pair<Node*, int> frontPair = q.front();
+//         q.pop();
+
+//         // Getting node and vertical index
+//         Node* front = frontPair.first;
+//         int index = frontPair.second;
+
+//         // Storing index in map
+//         // It takes O(log(n)) to insert in Ordered-Map
+//         mp[index] = front->data;
+
+//         // Left Child
+//         if(front->left != NULL){
+
+//             q.push(make_pair(front->left, index - 1));
+//         }
+
+//         // Right Child
+//         if(front->right != NULL){
+
+//             q.push(make_pair(front->right, index + 1));
+//         }
+//     }
+
+//     // Get the Bottom View from map
+//     map<int, int> :: iterator itr;
+
+//     for(itr = mp.begin(); itr != mp.end(); itr++){
+
+//         bottomView.push_back(itr->second);
+//     }
+// }
+
+// Method 3 : Iterative Method [Using Queue with Unordered Map]
+// Time Complexity : O(n)   Space Complexity : O(n)
 void bottomViewBinaryTree(Node* root, vector<int> &bottomView){
 
+    if(root == NULL) return;
+
+    // For tree node data
+    unordered_map<int, int> mp;
+
+    // Storing the tree nodes & vertical height
+    queue< pair<Node*, int> > q;
+    q.push(make_pair(root, 0));
+    int min = 0;
+
+    while(!q.empty()){
+
+        pair<Node*, int> frontPair = q.front();
+        q.pop();
+
+        Node* front = frontPair.first;
+        int index = frontPair.second;
+
+        if(min > index){
+
+            min = index;
+        }
+
+        // It takes O(1) to insert in Unordered-Map
+        mp[index] = front->data;
+
+        // Left Child
+        if(front->left != NULL){
+
+            q.push(make_pair(front->left, index - 1));
+        }
+
+        // Right Child
+        if(front->right != NULL){
+
+            q.push(make_pair(front->right, index + 1));
+        }
+    }
+
+    // Get the min vertical index
+    unordered_map<int, int> :: iterator itr;
+    min = abs(min);
+    bottomView.resize(mp.size());
+
+    for(itr = mp.begin(); itr != mp.end(); itr++){
+
+        bottomView[itr->first + min] = itr->second;
+    }
 }
 
 int main()

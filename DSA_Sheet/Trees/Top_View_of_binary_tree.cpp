@@ -4,6 +4,7 @@
 #include <stack>
 #include <queue>
 #include <utility>
+#include <unordered_map>
 using namespace std;
 
 class Node {
@@ -87,78 +88,135 @@ Node* createTree(Node* root){
 
 // Method 2 : Iterative Method [Without Using Map]
 // Time Complexity : O(n)   Space Complexity : O(n)
+// void topViewBinaryTree(Node* root, vector<int> &topView){
+
+//     if(root == NULL) return;
+
+//     // Queue for storing (nodes, vertical index) pair
+//     queue <pair<Node*, int> > q;
+//     q.push(make_pair(root, 0));
+
+//     // Keep track of all the vertical indexes
+//     int left = 0;
+//     int right = 0;
+
+//     // We need to store nodes data 
+//     stack<int> leftNodes;    // To reverse the order
+//     vector<int> rightNodes;   // To maintain the same order
+
+//     while(!q.empty()){
+
+//         // Get the front pair
+//         pair<Node*, int> frontPair = q.front();
+//         q.pop();
+
+//         Node* front = frontPair.first;
+//         int index = frontPair.second;
+
+//         // If index is equal to left or right we will ignore 
+//         // [As we only need one node vertically]
+
+//         if(index < left){
+
+//             // Store in Stack
+
+//             leftNodes.push(front->data);
+//             left = index;
+//         }
+
+//         if(index > right){
+
+//             // Store in Vector
+
+//             rightNodes.push_back(front->data);
+//             right = index;
+//         }
+
+//         // Store Right Child
+//         if(front->left != NULL){
+
+//             q.push(make_pair(front->left, index - 1));
+//         }
+
+//         // Store Left Child
+//         if(front->right != NULL){
+
+//             q.push(make_pair(front->right, index + 1));
+//         }
+//     }
+
+//     // Now the Top View from stack and vector [From left and right resp.]
+//     // Left Half
+//     while(!leftNodes.empty()){
+
+//         topView.push_back(leftNodes.top());
+//         leftNodes.pop();
+//     }
+
+//     // Root data
+//     topView.push_back(root->data);
+
+//     // Right Half
+//     for(int i=0; i<rightNodes.size(); i++){
+
+//         topView.push_back(rightNodes[i]);
+//     }
+// }
+
+// Method 3 : Iterative Method [Using Queue with Unordered Map]
+// Time Complexity : O(n)   Space Complexity : O(n)
 void topViewBinaryTree(Node* root, vector<int> &topView){
 
     if(root == NULL) return;
 
-    // Queue for storing (nodes, vertical index) pair
-    queue <pair<Node*, int> > q;
+    // For tree node data
+    unordered_map<int, int> mp;
+
+    // Storing the tree nodes & vertical height
+    queue< pair<Node*, int> > q;
     q.push(make_pair(root, 0));
-
-    // Keep track of all the vertical indexes
-    int left = 0;
-    int right = 0;
-
-    // We need to store nodes data 
-    stack<int> leftNodes;    // To reverse the order
-    vector<int> rightNodes;   // To maintain the same order
+    int min = 0;
 
     while(!q.empty()){
 
-        // Get the front pair
         pair<Node*, int> frontPair = q.front();
         q.pop();
 
         Node* front = frontPair.first;
         int index = frontPair.second;
 
-        // If index is equal to left or right we will ignore 
-        // [As we only need one node vertically]
+        if(min > index){
 
-        if(index < left){
-
-            // Store in Stack
-
-            leftNodes.push(front->data);
-            left = index;
+            min = index;
         }
 
-        if(index > right){
+        // It takes O(1) to insert in Unordered-Map
+        if(mp.find(index) == mp.end()){
 
-            // Store in Vector
-
-            rightNodes.push_back(front->data);
-            right = index;
+            mp[index] = front->data;
         }
 
-        // Store Right Child
+        // Left Child
         if(front->left != NULL){
 
             q.push(make_pair(front->left, index - 1));
         }
 
-        // Store Left Child
+        // Right Child
         if(front->right != NULL){
 
             q.push(make_pair(front->right, index + 1));
         }
     }
 
-    // Now the Top View from stack and vector [From left and right resp.]
-    // Left Half
-    while(!leftNodes.empty()){
+    // Get the min vertical index
+    unordered_map<int, int> :: iterator itr;
+    min = abs(min);
+    topView.resize(mp.size());
 
-        topView.push_back(leftNodes.top());
-        leftNodes.pop();
-    }
+    for(itr = mp.begin(); itr != mp.end(); itr++){
 
-    // Root data
-    topView.push_back(root->data);
-
-    // Right Half
-    for(int i=0; i<rightNodes.size(); i++){
-
-        topView.push_back(rightNodes[i]);
+        topView[itr->first + min] = itr->second;
     }
 }
 
