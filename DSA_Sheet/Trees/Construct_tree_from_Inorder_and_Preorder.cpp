@@ -72,7 +72,7 @@ void postorderTraversal(Node* root){
 // }
 
 // Method 2 : Recursive Optimized [Using Map]
-// Time Complexity : O(n^2)  Space Complexity : O(n)
+// Time Complexity : O(n)  Space Complexity : O(n)
 Node* createTreeHelper(vector<int> &inorder, vector<int> &preorder, int &index, int start, int end, unordered_map<int, int> &helperMap){
 
     if(start > end) return NULL;
