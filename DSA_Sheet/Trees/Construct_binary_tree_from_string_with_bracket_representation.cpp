@@ -54,53 +54,104 @@ void printTree(Node* root){
 // Method 1 : Taking Left and Right Subtree based on brackets
 // Time Complexity : O(n^2)   Space Complexity : O(n) 
 // [As we are iterating the sub-string many times : Time Complexity is O(n^2)] 
-int findClosingBracket(string input, int start){
+// int findClosingBracket(string input, int start){
 
-    int count = 1;
-    start = start + 1;
+//     int count = 1;
+//     start = start + 1;
 
-    while(count != 0){
+//     while(count != 0){
 
-        if(input[start] == '('){
+//         if(input[start] == '('){
 
-            count++;
-        }
-        else if(input[start] == ')'){
+//             count++;
+//         }
+//         else if(input[start] == ')'){
 
-            count--;
-        }
+//             count--;
+//         }
 
-        if(count == 0) return start;
+//         if(count == 0) return start;
 
-        start++;
-    }
+//         start++;
+//     }
 
-    return start;
-}
+//     return start;
+// }
 
-Node* convertHelper(string input, int start, int end){
+// Node* convertHelper(string input, int start, int end){
 
-    if(start > end) return NULL;
+//     if(start > end) return NULL;
 
-    // Start should always be at some data initially
-    // Create Node from start data
-    Node* root = new Node(input[start]-'0');
-    int index = -1;
+//     // Start should always be at some data initially
+//     // Create Node from start data
+//     Node* root = new Node(input[start]-'0');
+//     int index = -1;
 
-    // Check if left/right tree exits
-    if(start + 1 <= end && input[start + 1] == '('){
+//     // Check if left/right tree exits
+//     if(start + 1 <= end && input[start + 1] == '('){
 
-        index = findClosingBracket(input, start + 1);
-    }
+//         index = findClosingBracket(input, start + 1);
+//     }
 
-    // If left/right exits
-    if(index != -1){
+//     // If left/right exits
+//     if(index != -1){
 
-        // Left Child
-        root->left = convertHelper(input, start + 2, index - 1);
+//         // Left Child
+//         root->left = convertHelper(input, start + 2, index - 1);
     
-        // Right Child
-        root->right = convertHelper(input, index + 2, end - 1);
+//         // Right Child
+//         root->right = convertHelper(input, index + 2, end - 1);
+//     }
+
+//     return root;
+// }
+
+// Node* convertStringToTree(string s){
+
+//     if(s.size() == 0) return NULL;
+
+//     Node* root = convertHelper(s, 0, s.size());
+
+//     return root;
+// }
+
+// Method 2 : Moving with brackets
+// Time Complexity : O(n)   Space Complexity : O(n) 
+Node* createTreeHelper(string &input, int &start){
+
+    if(start >= input.size()) return NULL;
+
+    Node* root = NULL;
+
+    if(input[start] != '(' && input[start] != ')'){
+
+        root = new Node(input[start]-'0');
+        start = start + 1;
+    }        
+
+    // Left Child
+    if(start < input.size() && input[start] == '('){
+
+        start = start + 1;
+        root->left = createTreeHelper(input, start);
+    }
+    
+    if(start < input.size() && input[start] == ')'){
+
+        start = start + 1;
+        return root;
+    }
+
+    // Right Child
+    if(start < input.size() && input[start] == '('){
+
+        start = start + 1;
+        root->right = createTreeHelper(input, start);
+    }
+    
+    if(start < input.size() && input[start] == ')'){
+
+        start = start + 1;
     }
 
     return root;
@@ -108,9 +159,10 @@ Node* convertHelper(string input, int start, int end){
 
 Node* convertStringToTree(string s){
 
-    if(s.size() == 0) return NULL;
+    if(s.size() == 0) return NULL;    
 
-    Node* root = convertHelper(s, 0, s.size());
+    int start = 0;
+    Node* root = createTreeHelper(s, start);
 
     return root;
 }
