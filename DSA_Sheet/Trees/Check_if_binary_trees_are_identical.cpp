@@ -34,7 +34,7 @@ Node* createTree(Node* root){
 }
 
 // Method 1 : Recursive Method 
-// Time Complexity : O(n)   Space Complexity : O(n)
+// Time Complexity : O(min(m, n))   Time Complexity : O(min(m, n))
 // bool checkIdentical(Node* root1, Node* root2){
 
 //     if(root1 == NULL && root2 == NULL) 
@@ -57,6 +57,7 @@ Node* createTree(Node* root){
 // }
 
 // Method 2 : Iterative Method
+// Time Complexity : O(min(m, n))   Time Complexity : O(min(m, n))
 bool checkIdentical(Node* root1, Node* root2){
 
     if(root1 == NULL && root2 == NULL) 
