@@ -32,6 +32,7 @@ Node* createTree(Node* root){
 }
 
 // Method : Recursive Method [Two calls to left & right Child]
+// Time Complexity : O(min(m, n))  Space Complexity : O(min(m, n))
 bool checkIsomorphicTree(Node* root1, Node* root2){
 
     if(root1 == NULL && root2 == NULL) 
