@@ -58,7 +58,7 @@ Node* createTree(Node* root){
 // }
 
 // Method 2 : Checking substring in inorder & preorder/postorder
-// Time Complexity : O(n)  Space Complexity : O(n)
+// Time Complexity : O(max(m, n))  Space Complexity : O(max(m, n))
 void findInorder(Node* root, string &inorder){
 
     if(root == NULL){
