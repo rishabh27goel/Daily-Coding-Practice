@@ -1,6 +1,7 @@
 #include <iostream>
-using namespace std;
 #include <vector>
+#include "../String/kmp_algorithm"
+using namespace std;
 
 void createLPSVector(string needle, vector<int> &lps){
 
