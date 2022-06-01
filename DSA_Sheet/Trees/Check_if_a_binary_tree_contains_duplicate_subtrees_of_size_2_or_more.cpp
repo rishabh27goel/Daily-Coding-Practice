@@ -1,6 +1,6 @@
 #include <iostream>
-#include <unordered_map>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Node {
@@ -33,35 +33,27 @@ Node* createTree(Node* root){
     return root;
 }
 
-void printInorder(Node* root){
-
-    if(root == NULL) return;
-
-    printInorder(root->left);
-
-    cout << root->data << " ";
-
-    printInorder(root->right);
-}
-
 // Method : Using map for storing string of subtrees
 // Time Complexity : O(n^2)  Space Complexity : O(n^2)
 // Insert string in map [Space N * N] [Time N * N]
-string fillSubtreeMap(Node* root, unordered_map<string, int> &mp, vector<Node*> &output){
+string fillSubtreeMap(Node* root, unordered_map<string, int> &mp, bool &duplicale){
 
     if(root == NULL) return "";
 
     string s = "(";
-    s += fillSubtreeMap(root->left, mp, output);
-    
-    s += to_string(root->data);
+    s += fillSubtreeMap(root->left, mp, duplicale);
 
-    s += fillSubtreeMap(root->right, mp, output);
+    string rootStr = to_string(root->data);
+    s += rootStr;
+
+    s += fillSubtreeMap(root->right, mp, duplicale);
     s += ")";
 
-    if(mp[s] == 1){
+    // Check in the string map : Finding String in Map   [Time : O(n)]
+    // Size 2 or more
+    if(mp.find(s) != mp.end() && rootStr.size() + 2 < s.size()){
 
-        output.push_back(root);
+        duplicale = true;
     }
 
     mp[s]++;
@@ -69,16 +61,16 @@ string fillSubtreeMap(Node* root, unordered_map<string, int> &mp, vector<Node*> 
     return s;
 }
 
-vector<Node*> findDuplicateSubtree(Node* root){
+bool checkForDuplicateSubtree(Node* root){
 
-    vector<Node*> output;
-    if(root == NULL) output;
+    if(root == NULL) return false;
 
     unordered_map <string, int> mp;
+    bool duplicate = false;
 
-    string str = fillSubtreeMap(root, mp, output);
+    string output = fillSubtreeMap(root, mp, duplicate);    
 
-    return output;
+    return duplicate;
 }
 
 int main()
@@ -89,14 +81,16 @@ int main()
     cout << "Enter nodes data : ";
     root = createTree(root);
 
-    // Find all duplicate subtrees
-    vector<Node*> output = findDuplicateSubtree(root);
+    // Check if duplicate subtrees exits
+    bool check = checkForDuplicateSubtree(root);
 
-    cout << "Printing Subtree : \n";
-    for(int i=0; i<output.size(); i++){
+    if(check){
 
-        printInorder(output[i]);
-        cout << endl;
+        cout << "Duplicate exits !";
+    }
+    else{
+
+        cout << "Duplicate does not exits !";
     }
 
     cout << endl;
