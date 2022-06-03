@@ -79,44 +79,80 @@ Node* createTree(Node* root){
 
 // Method 2 : Passing head and tail as parameters
 // Time Complexity : O(n)  Space Complexity : O(n)
-void flattenHelper(Node* root, Node* &head, Node* &tail){
+// void flattenHelper(Node* root, Node* &head, Node* &tail){
 
-    if(root == NULL) return;
+//     if(root == NULL) return;
 
-    Node* leftChild = root->left;
-    Node* rightChild = root->right;
+//     Node* leftChild = root->left;
+//     Node* rightChild = root->right;
 
-    root->left = NULL;
+//     root->left = NULL;
 
-    if(head == NULL){
+//     if(head == NULL){
 
-        head = root;
-    }
-    else{
+//         head = root;
+//     }
+//     else{
 
-        tail->right = root;
-    }
+//         tail->right = root;
+//     }
 
-    tail = root;
+//     tail = root;
 
-    flattenHelper(leftChild, head, tail);
-    flattenHelper(rightChild, head, tail);
-}
+//     flattenHelper(leftChild, head, tail);
+//     flattenHelper(rightChild, head, tail);
+// }
 
+// Node* flattenBinaryTreeToList(Node* root){
+
+//     if(root == NULL) return root;
+
+//     Node* head = NULL;
+//     Node* tail = NULL;
+
+//     flattenHelper(root, head, tail);
+
+//     // Ending nodes
+//     tail->right = NULL;
+
+//     return head;
+// }
+
+// Method 3 : Using Morris Traversal 
+// Time Complexity : O(n)  Space Complexity : O(1)
 Node* flattenBinaryTreeToList(Node* root){
 
     if(root == NULL) return root;
 
-    Node* head = NULL;
-    Node* tail = NULL;
+    Node* curr = root;
 
-    flattenHelper(root, head, tail);
+    while(curr != NULL){
 
-    // Ending nodes
-    tail->right = NULL;
+        if(curr->left == NULL){
 
-    return head;
-}
+            curr = curr->right;
+        }
+        else{
+
+            // Move to inorder predecessor
+            Node* pred = curr->left;
+
+            while(pred->right != NULL){
+
+                pred = pred->right;
+            }
+
+            // Create connect to root->right
+            pred->right = curr->right;
+            curr->right = curr->left;
+
+            curr->left = NULL;
+            curr = curr->right;
+        }
+    }
+
+    return root;
+}   
 
 int main()
 {
