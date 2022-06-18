@@ -37,7 +37,7 @@ Node* createTree(Node* root, int value){
 }
 
 // Method 1 : Separate min and max functions
-// Time Complexity : O(n^2)  Space Complexity : O(h * h)
+// Time Complexity : O(n^2)  Space Complexity : O(h)
 // void findMin(Node* root, int &value){
 
 //     if(root == NULL) return;
