@@ -38,7 +38,7 @@ Node* createTree(Node* root, int value){
 }
 
 // Method 1 : Recursive Method 
-// Time Complexity : O(n)  Space Complexity : O(1) 
+// Time Complexity : O(n)  Space Complexity : O(h) 
 // void findInorderSuccessorPredecessor(Node* root, int target, pair<Node*, Node*> &pr){
 
 //     if(root == NULL) return;
