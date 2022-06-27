@@ -11,7 +11,7 @@ void printHeap(vector<int> &arr){
     }
 }
 
-// Method : 
+// Method : Recursive
 // Time Complexity : O(n)  Space Complexity : O(log(n)) [Due to recursion]
 void heapify(vector<int> &arr, int parent){
 
