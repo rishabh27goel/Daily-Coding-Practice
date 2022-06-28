@@ -1,45 +1,85 @@
 #include <iostream>
 #include <algorithm>
+#include <queue>
 using namespace std;
 
 // Method 1 : Brute Force [Sorting after each deletion]
+// Time Complexity : O(n + k)  Space Complexity : O(26)
+// int gameWithString(string input, int k){
+
+//     if(input.size() == 0) return 0;
+
+//     // Store the frequency 
+//     int freq[26] = {0};
+    
+//     for(int i=0; i<input.size(); i++){
+
+//         freq[input[i]-'a']++;
+//     }
+
+//     // Get initial value
+//     int value = 0;
+
+//     for(int i=0; i<26; i++){
+
+//         value += (freq[i] * freq[i]);
+//     }
+
+//     while(k--){
+
+//         // Sort in Decreasing
+//         sort(freq, freq + 26, greater<int>());
+
+//         value -= (freq[0] * freq[0]);
+
+//         if(freq[0] > 0){
+
+//             freq[0]--;
+//         }
+
+//         value += (freq[0] * freq[0]);
+//     }
+
+//     return value;
+// }
+
+// Method 2 : Using Priority Queue
 // Time Complexity : O(n + k)  Space Complexity : O(26)
 int gameWithString(string input, int k){
 
     if(input.size() == 0) return 0;
 
-    // Store the frequency 
-    int freq[26] = {0};
-    
+    // Get the count
+    int count[26] = {0};
+
     for(int i=0; i<input.size(); i++){
 
-        freq[input[i]-'a']++;
+        count[input[i]-'a']++;
     }
 
-    // Get initial value
-    int value = 0;
+    int sum = 0;
+    priority_queue <int> pq;
 
     for(int i=0; i<26; i++){
 
-        value += (freq[i] * freq[i]);
+        pq.push(count[i]);
+        sum += (count[i] * count[i]);
     }
 
     while(k--){
 
-        // Sort in Decreasing
-        sort(freq, freq + 26, greater<int>());
+        int top = pq.top();
+        pq.pop();
 
-        value -= (freq[0] * freq[0]);
 
-        if(freq[0] > 0){
-
-            freq[0]--;
-        }
-
-        value += (freq[0] * freq[0]);
+        sum -= (top * top);
+        top -= 1;
+        
+        sum += (top * top);
+        pq.push(top);
     }
 
-    return value;
+    return sum;
 }
 
 int main()
