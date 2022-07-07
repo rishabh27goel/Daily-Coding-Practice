@@ -3,8 +3,8 @@
 using namespace std;
 
 // Method : Backtracking
-// Time Complexity : O(4 ^ (n * n)) or O(3 ^ (n * n))   Space Complexity : O(n * n)
-// [O(3 ^ (n * n))] As at max a point (i, j) will have 3 position to travel
+// Time Complexity : O(4 ^ (n * n)) -> [More Optimized O(3 ^ (n * n))]   Space Complexity : O(n * n)
+// [O(3 ^ (n * n))] : At max the rat at point (i, j) will have 3 positions to travel
 bool isSafe(vector< vector<int> > &maze, vector< vector<int> > &visited, int i, int j){
 
     if(i < 0 || j < 0 || i >= maze.size() || j >= maze.size())
