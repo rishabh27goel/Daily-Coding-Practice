@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-// Method : 
+// Method : Mathematics Logic & Elimination
 // Time Complexity : O(n^2)  Space Complexity : O(n)
 string kthPermutationSequence(int n, int k){
 
