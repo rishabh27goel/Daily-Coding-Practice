@@ -3,6 +3,10 @@
 #include <vector>
 using namespace std;
 
+
+// Adjacency List :
+// Time Complexity : O(|E|) [Adding E edges]
+// Space Complexity : O(|V| + |E|) [Worst Case : O(V^2)]
 class UndirectedGraph {
 
     public:

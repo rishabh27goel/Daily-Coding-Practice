@@ -2,6 +2,9 @@
 #include <vector>
 using namespace std;
 
+
+// Adjacency Matrix :
+// Time Complexity : O(V^2)  Space Complexity : O(V^2) [Vertices]
 class DirectedGraph {
 
     public:
