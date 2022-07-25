@@ -6,7 +6,7 @@ using namespace std;
 
 
 // Method :  Breadth First Search
-// Time Complexity : O()  Space Complexity : O()
+// Time Complexity : O(|V| + |E|)  Space Complexity : O(|V| + |E|)
 void bfsHelper(unordered_map <int, vector<int> > &adjList, unordered_map <int, bool> &visited, int start){
 
     // Pushing elements in queue
@@ -77,8 +77,6 @@ int main()
     }
 
     // Breadth First Search
-    unordered_map <int, bool> visited;
-
     bfsTraversal(n, adjList);
 
 
