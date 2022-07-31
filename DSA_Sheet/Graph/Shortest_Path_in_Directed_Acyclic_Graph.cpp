@@ -59,18 +59,20 @@ vector<int> shortestPath(vector< vector<int> > &edges, int s, int n){
 
     // Find the shortest path now
 
-    output[s] = 0;  // Starting Point
+    output[s] = 0;
 
-    for(int index = 0; index < n; index++){
+    for(int i=0; i<n; i++){
 
-        if(output[index] != INT_MAX){
+        // Reach the source & update weight
+        if(output[topo[i]] != INT_MAX){
 
-            for(int j=0; j<adjList[index].size(); j++){
+            int ind = topo[i];
 
-                pair<int, int> child = adjList[index][j];
+            for(int j=0; j<adjList[ind].size(); j++){
 
-                // Update distance for shortest path
-                output[child.first] = min(output[child.first], output[index] + child.second);
+                pair<int, int> pr = adjList[ind][j];
+
+                output[pr.first] = min(output[pr.first], output[ind] + pr.second);
             }
         }
     }
