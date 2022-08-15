@@ -4,12 +4,12 @@ using namespace std;
 
 // Method : Bellman Ford Algorithm
 // Time Complexity : O(V * E)  Space Complexity : O(V)
-void findShortestDistance(int n, vector< vector<int> > &edges, int src){
+bool detectNegativeCycle(int n, vector< vector<int> > &edges){
 
     vector <int> dist(n, INT_MAX);
 
     // Start from Source
-    dist[src] = 0;
+    dist[0] = 0;
 
     // Step 1 : Iterate over edges and update minimum distance n-1 times
     for(int i=1; i<=n-1; i++){
@@ -27,6 +27,7 @@ void findShortestDistance(int n, vector< vector<int> > &edges, int src){
         }
     }
 
+
     // Step 2 : Check for Negative Weight Cycle
     for(int j=0; j<edges.size(); j++){
 
@@ -36,17 +37,12 @@ void findShortestDistance(int n, vector< vector<int> > &edges, int src){
 
         if(dist[u] != INT_MAX && dist[v] > dist[u] + w){
 
-            cout << "\nNegative Cycle Exists !!";
-            return;
+            return true;
         }
     }
 
-    cout << "\nShortest Distance : ";
 
-    for(int i=0; i<n; i++){
-
-        cout << dist[i] << " ";
-    }
+    return false;
 }
 
 int main()
@@ -55,11 +51,12 @@ int main()
     int n;
     cin >> n;
 
-    // Input : 
+// Input :
 // 0 1 1
 // 1 2 -1
-// 2 3 3
-// 3 0 2
+// 2 3 -1
+// 3 0 -1
+
     vector< vector<int> > edges;
 
     cout << "Enter number of edges : ";
@@ -80,13 +77,19 @@ int main()
         edges.push_back(ed);
     }
 
-    cout << "Enter Source : ";
-    int src;
-    cin >> src;
 
+    // Detect Negative Cycle
+    int cycle = detectNegativeCycle(n, edges);
 
-    // Bellman Ford
-    findShortestDistance(n, edges, src);
+    if(cycle){
+
+        cout << "Negative Cycle Exists !!";
+    }
+    else{
+
+        cout << "Negative Cycle Doesn't Exists !!";
+    }
+
 
     cout << endl;
     return 0;
