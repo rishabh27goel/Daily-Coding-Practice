@@ -22,7 +22,7 @@ bool colorDfs(unordered_map<int, vector<int> > &adjList, vector<int> &visited, i
 
     int n = visited.size();
 
-    // If all nodes are filled with colorsß
+    // If all nodes are filled with colors
     if(start == n) 
         return true;
 
