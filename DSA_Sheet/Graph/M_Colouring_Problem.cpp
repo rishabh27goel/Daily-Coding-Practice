@@ -3,8 +3,8 @@
 #include <unordered_map>
 using namespace std;
 
-// Method :
-// Time Complexity : O()  Space Complexity : O()
+// Method : Backtracking
+// Time Complexity : O(m ^ V)  Space Complexity : O(V + E)
 bool isSafe(unordered_map<int, vector<int> > &adjList, vector<int> &visited, int start, int color){
 
     for(int i=0; i<adjList[start].size(); i++){
