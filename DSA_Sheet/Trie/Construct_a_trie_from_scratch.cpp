@@ -2,6 +2,10 @@
 #include <vector>
 using namespace std;
 
+// Time Complexity : O(Length of Word)   Space Complexity : O(Length of Word)
+// Insertion : O(L)
+// Deletion : O(L)
+// Searching : O(L)
 class TrieNode {
 
     public:
