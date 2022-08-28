@@ -71,6 +71,7 @@ bool wordBreak(string input, vector<string> &words){
 
         if(dp[i] == false)  continue; 
             
+        // Start very time from root in trie
         TrieNode* itr = root;
         int j = i;
 
