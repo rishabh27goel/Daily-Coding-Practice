@@ -2,8 +2,9 @@
 #include <vector>
 using namespace std;
 
-// Method :
-// Time Complexity : O()  Space Complexity : O()
+// Method : Using Trie
+// Time Complexity : O(|s| * n * m)  Space Complexity : O(n * m)
+// s -> search string   n -> word list size  m -> max word size in list
 class TrieNode {
 
     public:
@@ -56,7 +57,7 @@ void printWords(TrieNode* node, string s, vector<string> &list){
     // If word is terminating 
     if(node->isEnd)
         list.push_back(s);
-        
+
 
     for(int i=0; i<26; i++){
 
