@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-// Method 1 : Ways from 0 to n  AND  Ways from n to 0
+// Method 1 : Recursion Method
 // Time Complexity : O(2^n)  Space Complexity : O(n)
 // Approach 1: Ways from 0 to n
 // int climbingStairsHelper(int n, int s){
