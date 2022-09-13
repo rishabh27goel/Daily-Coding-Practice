@@ -36,44 +36,77 @@ using namespace std;
 
 // Method 2 : Dynamic Programming & Memoisation
 // Time Complexity : O(n * sum)  Space Complexity : O(sum)
-int countCoins(int n, vector<int> &coins, int sum, vector<int> &dp){
+// int countCoins(int n, vector<int> &coins, int sum, vector<int> &dp){
 
-    // Base Case
-    if(sum < 0)  return -1;
-    if(sum == 0)  return 0;
+//     // Base Case
+//     if(sum < 0)  return -1;
+//     if(sum == 0)  return 0;
 
-    // Step 3 : If already exists
-    if(dp[sum] != -1)
-        return dp[sum];
+//     // Step 3 : If already exists
+//     if(dp[sum] != -1)
+//         return dp[sum];
 
-    // Try all coins
-    int minCoins = INT_MAX;
+//     // Try all coins
+//     int minCoins = INT_MAX;
 
-    for(int i=0; i<n; i++){
+//     for(int i=0; i<n; i++){
 
-        int c = countCoins(n, coins, sum-coins[i], dp);
+//         int c = countCoins(n, coins, sum-coins[i], dp);
 
-        if(c != -1){
+//         if(c != -1){
 
-            minCoins = min(minCoins, c+1);
-        }
-    }
+//             minCoins = min(minCoins, c+1);
+//         }
+//     }
 
-    if(minCoins == INT_MAX)
-        return -1;
+//     if(minCoins == INT_MAX)
+//         return -1;
 
-    // Step 2 : Store dp array
-    dp[sum] = minCoins;
+//     // Step 2 : Store dp array
+//     dp[sum] = minCoins;
 
-    return dp[sum];
-}
+//     return dp[sum];
+// }
 
+// int numberOfCoins(int n, vector<int> &coins, int sum){
+
+//     // Step 1 : Create dp array
+//     vector<int> dp(sum + 1, -1);
+
+//     return countCoins(n, coins, sum, dp);
+// }
+
+// Method 3 : Dynamic Programming & Tabulation
+// Time Complexity : O(n * sum)  Space Complexity : O(sum)
 int numberOfCoins(int n, vector<int> &coins, int sum){
 
     // Step 1 : Create dp array
-    vector<int> dp(sum + 1, -1);
+    vector<int> dp(sum + 1, INT_MAX);
 
-    return countCoins(n, coins, sum, dp);
+    // Base Case
+    dp[0] = 0;
+
+    // Step 2 : Tabulation
+    for(int i=0; i<=sum; i++){
+
+        for(int j=0; j<n; j++){
+
+            if(i >= coins[j]){
+
+                int c = dp[i-coins[j]];
+            
+                if(c != INT_MAX){
+
+                    dp[i] = min(dp[i], c + 1);
+                }
+            }
+        }
+    }
+
+    if(dp[sum] == INT_MAX)
+        return -1;
+
+    return dp[sum];
 }
 
 int main()
