@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 using namespace std;
 
 // Method 1 : Recursion Method
@@ -92,45 +93,74 @@ using namespace std;
 
 // Method 3 : Dynamic Programming & Tabulation
 // Time Complexity : O(n)  Space Complexity : O(n)
+// int minimumCost(vector<int> &days, vector<int> &cost){
+
+//     int n = days.size();
+
+//     // Step 1 : Create dp array
+//     vector <int> dp(n+1, INT_MAX);
+
+//     // Base Case
+//     dp[n] = 0;
+
+//     // Step 2 : Tabulation
+//     for(int ind = n-1; ind >= 0; ind--){
+
+//         // 1-Day Pass
+//         int oneDay = cost[0] + dp[ind+1];
+    
+//         // 7-Day Pass [Reach the index if we take 7 day pass]
+//         int i = ind;
+
+//         while(i < n && days[i] < days[ind] + 7){
+
+//             i++;
+//         }
+
+//         int sevenDay = cost[1] + dp[i];
+
+//         // 30-Day Pass [Reach the index if we take 30 day pass]
+//         while(i < n && days[i] < days[ind] + 30){
+
+//             i++;
+//         }
+        
+//         int thirtyDay = cost[2] + dp[i];
+
+
+//         dp[ind] = min(oneDay, min(sevenDay, thirtyDay));
+//     }
+
+//     return dp[0];
+// }
+
+// Method 4 : Space Optimisation
+// Time Complexity : O(n)  Space Complexity : O(1)
 int minimumCost(vector<int> &days, vector<int> &cost){
 
     int n = days.size();
 
-    // Step 1 : Create dp array
-    vector <int> dp(n+1, INT_MAX);
+    int output = 0;
 
-    // Base Case
-    dp[n] = 0;
+    queue< pair<int, int> > weekly;
+    queue< pair<int, int> > monthly;
 
-    // Step 2 : Tabulation
-    for(int ind = n-1; ind >= 0; ind--){
+    for(int i=0; i<days.size(); i++){
 
-        // 1-Day Pass
-        int oneDay = cost[0] + dp[ind+1];
-    
-        // 7-Day Pass [Reach the index if we take 7 day pass]
-        int i = ind;
+        while(!weekly.empty() && weekly.front().first + 7 <= days[i])
+            weekly.pop();
 
-        while(i < n && days[i] < days[ind] + 7){
-
-            i++;
-        }
-
-        int sevenDay = cost[1] + dp[i];
-
-        // 30-Day Pass [Reach the index if we take 30 day pass]
-        while(i < n && days[i] < days[ind] + 30){
-
-            i++;
-        }
-        
-        int thirtyDay = cost[2] + dp[i];
+        while(!monthly.empty() && monthly.front().first + 30 <= days[i])
+            monthly.pop();
 
 
-        dp[ind] = min(oneDay, min(sevenDay, thirtyDay));
+        weekly.push(make_pair(days[i], output + cost[1]));
+        monthly.push(make_pair(days[i], output + cost[2]));
+
+        output = min(output + cost[0], min(weekly.front().second, monthly.front().second));
     }
 
-    return dp[0];
+    return output;
 }
 
 int main()
