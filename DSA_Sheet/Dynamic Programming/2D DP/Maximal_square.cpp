@@ -142,7 +142,7 @@ using namespace std;
 //     return maxSquare * maxSquare;
 // }
 
-// Method 4 : Space Optimisation [Method - 1]
+// Method 4 : Space Optimisation
 // Time Complexity : O(m * n)   Space Complexity : O(2 * m) 
 int maximalSquare(vector< vector<int> > &grid){
 
