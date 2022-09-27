@@ -3,7 +3,7 @@
 using namespace std;
 
 // Method 1 : Recursion Method
-// Time Complexity : O(2^n)  Space Complexity : O(n)
+// Time Complexity : O(2 ^ (n * weight))  Space Complexity : O(n * weight)
 // int findMaxValue(int n, vector<int> &weights, vector<int> &values, int ind, int maxWeight){
 
 //     // Base Case
